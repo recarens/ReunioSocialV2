@@ -310,7 +310,7 @@ namespace ReunioSocial
 
             origen = null;
 
-            grdEscenari.UpdateLayout();
+            //grdEscenari.Children.Clear();
 
 
         }
