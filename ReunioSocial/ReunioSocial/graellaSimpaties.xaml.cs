@@ -145,9 +145,9 @@ namespace ReunioSocial
                         TextBlock tb2 = (TextBlock)grdGraella.Children[columna - 1]; // Obtenim la persona anvers es fa la simpatia
                         nom2 = tb2.Text;
 
-                        Convidat personaAcanviar = (Convidat)esc.Tp[nom]; // Busquem la persona que és en funcio del nom
+                        Convidat personaAcanviar = (Convidat)esc.Tp[nom2]; // Busquem la persona que és en funcio del nom
 
-                        personaAcanviar[nom2] = nouValor;
+                        personaAcanviar[nom] = nouValor;
                     }
                 }
             }
