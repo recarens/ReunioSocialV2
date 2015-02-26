@@ -302,14 +302,24 @@ namespace ReunioSocial
 
         private void persona_Drop(object sender, DragEventArgs e)
         {
+            StackPanel desti = sender as StackPanel;
             //MessageBox.Show((e.Data.GetData(DataFormats.Text)).ToString());
+            StackPanel origen = e.Data.GetData("bloc") as StackPanel;
+
+            desti = origen;
+
+            origen = null;
+
+            grdEscenari.UpdateLayout();
+
+
         }
 
         private void persona_DragEnter(object sender, DragEventArgs e)
         {
-            //if(e.Data.GetDataPresent(StackPanel.))
+            //if(e.Data.GetDataPresent(DataFormats.)
             //{
-            //    e.Effects = DragDropEffects.Copy;
+                e.Effects = DragDropEffects.Copy;
             //}
             //else
             //{
@@ -319,9 +329,11 @@ namespace ReunioSocial
 
         private void persona_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            
             StackPanel casella = (StackPanel)sender;
-            DragDrop.DoDragDrop(casella, casella, DragDropEffects.Copy);
+            DataObject dragData = new DataObject("bloc", casella);
+
+            DragDrop.DoDragDrop(casella, dragData, DragDropEffects.Copy);
         }
 
         #region PROPIETATS
