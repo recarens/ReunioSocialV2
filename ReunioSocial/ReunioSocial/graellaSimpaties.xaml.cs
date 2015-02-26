@@ -123,32 +123,15 @@ namespace ReunioSocial
                 }
                 else
                 {
-                    if (fila > columna) // Hem d'agafar el valor de la columna esquerra com a nom
-                    {
+                    TextBlock tb = (TextBlock)grdGraella.Children[fila - 1]; // Obtenim el nom de la persona de la columna
+                    nom = tb.Text;
 
-                        TextBlock tb = (TextBlock)grdGraella.Children[fila - 1]; // Obtenim la persona que li canvia la simpatia
-                        nom = tb.Text;
+                    TextBlock tb2 = (TextBlock)grdGraella.Children[columna - 1]; // Obtenim el nom de la persona de la fila
+                    nom2 = tb2.Text;
 
-                        TextBlock tb2 = (TextBlock)grdGraella.Children[columna - 1]; // Obtenim la persona anvers es fa la simpatia
-                        nom2 = tb2.Text;
+                    Convidat personaAcanviar = (Convidat)esc.Tp[nom]; // Busquem la persona que és en funcio del nom
 
-                        Convidat personaAcanviar = (Convidat)esc.Tp[nom]; // Busquem la persona que és en funcio del nom
-
-                        personaAcanviar[nom2] = nouValor;
-
-                    }
-                    else  // Hem d'agafar el valor de la fila de dalt com a nom
-                    {
-                        TextBlock tb = (TextBlock)grdGraella.Children[fila - 1]; // Obtenim la persona que li canvia la simpatia
-                        nom = tb.Text;
-
-                        TextBlock tb2 = (TextBlock)grdGraella.Children[columna - 1]; // Obtenim la persona anvers es fa la simpatia
-                        nom2 = tb2.Text;
-
-                        Convidat personaAcanviar = (Convidat)esc.Tp[nom2]; // Busquem la persona que és en funcio del nom
-
-                        personaAcanviar[nom] = nouValor;
-                    }
+                    personaAcanviar[nom2] = nouValor;
                 }
             }
             catch(Exception ex)
