@@ -287,6 +287,10 @@ namespace ReunioSocial
             persona.Children.Add(nomPersona);
             ImageBrush fons = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), rutaImatge)));
             persona.Background = fons;
+            persona.AllowDrop = true;
+            persona.MouseDown +=persona_MouseDown;
+            persona.DragEnter +=persona_DragEnter;
+            persona.Drop += persona_Drop;
             
 
             Grid.SetColumn(persona, columna);
@@ -294,6 +298,30 @@ namespace ReunioSocial
             grdEscenari.Children.Add(persona);
 
             //FerAnimacio();
+        }
+
+        private void persona_Drop(object sender, DragEventArgs e)
+        {
+            //MessageBox.Show((e.Data.GetData(DataFormats.Text)).ToString());
+        }
+
+        private void persona_DragEnter(object sender, DragEventArgs e)
+        {
+            //if(e.Data.GetDataPresent(StackPanel.))
+            //{
+            //    e.Effects = DragDropEffects.Copy;
+            //}
+            //else
+            //{
+            //    e.Effects = DragDropEffects.None;
+            //}
+        }
+
+        private void persona_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            StackPanel casella = (StackPanel)sender;
+            DragDrop.DoDragDrop(casella, casella, DragDropEffects.Copy);
         }
 
         #region PROPIETATS
