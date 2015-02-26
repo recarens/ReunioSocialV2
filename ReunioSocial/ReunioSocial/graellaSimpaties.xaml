@@ -1,0 +1,8 @@
+﻿<Window x:Class="ReunioSocial.graellaSimpaties"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="graellaSimpaties" Height="300" Width="300">
+    <Grid Background="White">
+        <Grid x:Name="grdGraella" Width="auto" Height="auto" Background="#FFFFEEEE" Opacity="0.5"/>
+    </Grid>
+</Window>
