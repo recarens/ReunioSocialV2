@@ -186,6 +186,29 @@ namespace ReunioSocial
 
                 creaQuadre(nomImatge, "*", c.Fila, c.Columna,14);
             }
+
+            // Acabem d'omplir les caselles amb stackpanel per permetre el drag&drop
+
+            StackPanel sp;
+            for(fila = 0; fila < num_files; fila++)
+            {
+                for(columna = 0; columna < num_columnes; columna++)
+                {
+                    if(esc[fila,columna].Buida)
+                    {
+                        sp = new StackPanel();
+                        sp.AllowDrop = true;
+                        sp.MouseDown += persona_MouseDown;
+                        sp.DragEnter += persona_DragEnter;
+                        sp.Drop += persona_Drop;
+                        sp.Background = new SolidColorBrush(Colors.Red);
+                        sp.Opacity = 0;
+                        Grid.SetColumn(sp, columna);
+                        Grid.SetRow(sp, fila);
+                        grdEscenari.Children.Add(sp);
+                    }
+                }
+            }
         }
 
         private void btnConfigura_Click(object sender, RoutedEventArgs e)
@@ -264,7 +287,6 @@ namespace ReunioSocial
                                 d[esc.Tp.ElementAt(personaALaLlista).Nom] = simpatia;
                             }
                         }
-
                     }
                 }
             }
@@ -275,9 +297,7 @@ namespace ReunioSocial
         {
             StackPanel persona = new StackPanel();
             TextBlock nomPersona = new TextBlock();
-
-            
-                       
+      
             
             nomPersona.FontSize = midaLletra;
             nomPersona.FontWeight = FontWeights.Bold;
@@ -292,7 +312,6 @@ namespace ReunioSocial
             persona.DragEnter +=persona_DragEnter;
             persona.Drop += persona_Drop;
             
-
             Grid.SetColumn(persona, columna);
             Grid.SetRow(persona, fila);
             grdEscenari.Children.Add(persona);
@@ -302,16 +321,31 @@ namespace ReunioSocial
 
         private void persona_Drop(object sender, DragEventArgs e)
         {
-            StackPanel desti = sender as StackPanel;
-            //MessageBox.Show((e.Data.GetData(DataFormats.Text)).ToString());
+            StackPanel desti = (StackPanel)sender;
             StackPanel origen = e.Data.GetData("bloc") as StackPanel;
 
-            desti = origen;
 
-            origen = null;
+            if (desti.Children.Count > 0)
+            {
+                MessageBox.Show("Aquesta posició està ocupada");
+            }
+            else
+            {
+                TextBlock tbOrigen = (TextBlock)origen.Children[0];
+                Brush backgroundOrigen = (Brush)origen.Background;
 
-            //grdEscenari.Children.Clear();
+                origen.Children.RemoveAt(0);
+                desti.Children.Add(tbOrigen);
 
+
+                desti.Background = backgroundOrigen;
+                desti.Opacity = 1;
+                origen.Background = new SolidColorBrush(Colors.Red);
+                origen.Opacity = 0;
+
+                
+                //grdEscenari.Children.Clear();
+            }
 
         }
 
