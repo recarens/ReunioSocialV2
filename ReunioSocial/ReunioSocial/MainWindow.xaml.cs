@@ -80,6 +80,28 @@ namespace ReunioSocial
                     creaQuadre(nomImatge,esc.Tp.ElementAt(i).Nom,esc.Tp.ElementAt(i).Fila,esc.Tp.ElementAt(i).Columna,14);
                 }
             }
+
+            // Acabem d'omplir les caselles amb stackpanel per permetre el drag&drop
+            StackPanel sp;
+            for (int fila = 0; fila < num_files; fila++)
+            {
+                for (int columna = 0; columna < num_columnes; columna++)
+                {
+                    if (esc[fila, columna].Buida)
+                    {
+                        sp = new StackPanel();
+                        sp.AllowDrop = true;
+                        sp.MouseDown += persona_MouseDown;
+                        sp.DragEnter += persona_DragEnter;
+                        sp.Drop += persona_Drop;
+                        sp.Background = new SolidColorBrush(Colors.Red);
+                        sp.Opacity = 0;
+                        Grid.SetColumn(sp, columna);
+                        Grid.SetRow(sp, fila);
+                        grdEscenari.Children.Add(sp);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -188,7 +210,6 @@ namespace ReunioSocial
             }
 
             // Acabem d'omplir les caselles amb stackpanel per permetre el drag&drop
-
             StackPanel sp;
             for(fila = 0; fila < num_files; fila++)
             {
@@ -298,7 +319,6 @@ namespace ReunioSocial
             StackPanel persona = new StackPanel();
             TextBlock nomPersona = new TextBlock();
       
-            
             nomPersona.FontSize = midaLletra;
             nomPersona.FontWeight = FontWeights.Bold;
             nomPersona.Foreground = new SolidColorBrush(Colors.Red);
@@ -329,22 +349,37 @@ namespace ReunioSocial
             {
                 MessageBox.Show("Aquesta posició està ocupada");
             }
-            else
+            else if(origen.Children.Count > 0)
             {
+                // Fem el canvi GRAFIC
+
+                // Obtenim el que necessitem de la posicio antiga
                 TextBlock tbOrigen = (TextBlock)origen.Children[0];
                 Brush backgroundOrigen = (Brush)origen.Background;
 
+                // Afegim el nom i el borrem de l'origen
                 origen.Children.RemoveAt(0);
                 desti.Children.Add(tbOrigen);
 
-
+                // Afegim la imatge i l'esborrem de l'origen
                 desti.Background = backgroundOrigen;
                 desti.Opacity = 1;
                 origen.Background = new SolidColorBrush(Colors.Red);
                 origen.Opacity = 0;
 
-                
-                //grdEscenari.Children.Clear();
+                // Fem el canvi lògic de posició de la persona
+
+                // Obtenim la persona que hem de modificar
+                Persona personaMoguda = esc.Tp[tbOrigen.Text];
+                personaMoguda.Fila = Grid.GetRow(desti);
+                personaMoguda.Columna = Grid.GetColumn(desti);
+
+                // Modifiquem l'escenari
+                esc.posar(personaMoguda);
+
+                Posicio casellaBuida = new Posicio(Grid.GetRow(origen), Grid.GetColumn(origen));
+                esc[Grid.GetRow(origen), Grid.GetColumn(origen)] = casellaBuida;
+                                
             }
 
         }

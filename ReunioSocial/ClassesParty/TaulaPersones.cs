@@ -53,7 +53,10 @@ namespace ClassesParty
         {
             if (pers.EsConvidat())
             {
-                taulaPersones.Add(pers.Nom.ToString().ToLower(), pers);
+                if(!taulaPersones.ContainsKey(pers.Nom))
+                {
+                    taulaPersones.Add(pers.Nom.ToString().ToLower(), pers);                           
+                }
             }
             else
             {

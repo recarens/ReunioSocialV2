@@ -103,6 +103,7 @@ namespace ClassesParty
         public Posicio this[int fila, int col]
         {
             get { return (Posicio)esc[fila,col];}
+            set { esc[fila, col] = value; }
         }
         /// <summary>
         /// Mira si una coordenada es correcte per ser destí d'una persona
