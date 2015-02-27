@@ -327,10 +327,14 @@ namespace ReunioSocial
             persona.Children.Add(nomPersona);
             ImageBrush fons = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), rutaImatge)));
             persona.Background = fons;
-            persona.AllowDrop = true;
-            persona.MouseDown +=persona_MouseDown;
-            persona.DragEnter +=persona_DragEnter;
-            persona.Drop += persona_Drop;
+
+            if(nom != "*")
+            {
+                persona.AllowDrop = true;
+                persona.MouseDown += persona_MouseDown;
+                persona.DragEnter += persona_DragEnter;
+                persona.Drop += persona_Drop;
+            }
             
             Grid.SetColumn(persona, columna);
             Grid.SetRow(persona, fila);
@@ -386,7 +390,7 @@ namespace ReunioSocial
 
         private void persona_DragEnter(object sender, DragEventArgs e)
         {
-            //if(e.Data.GetDataPresent(DataFormats.)
+            //if(e.Data.GetData()
             //{
                 e.Effects = DragDropEffects.Copy;
             //}
@@ -451,7 +455,6 @@ namespace ReunioSocial
 
         //    Espera(pausa / 100);
             
-
         //}
 
         private void Espera(double segons)
