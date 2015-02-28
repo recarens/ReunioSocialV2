@@ -55,11 +55,8 @@ namespace ReunioSocial
         private void btnCicle_Click(object sender, RoutedEventArgs e)
         {
             esc.Cicle();
-            //PintarEscenari();
             
             RePintaEscenari();
-            
-            //MessageBox.Show("Convidat: " + esc.Tp.ElementAt(0).Nom + " -> fila: " + esc.Tp.ElementAt(0).Fila + " -> Columna: " + esc.Tp.ElementAt(0).Columna);
         }
 
         private void RePintaEscenari()
@@ -245,7 +242,6 @@ namespace ReunioSocial
         /// <param name="e"></param>
         private void btnInicia_Click(object sender, RoutedEventArgs e)
         {
-            
             iniciaEscenari();
 
             num_convidats = num_homes + num_dones;
@@ -275,7 +271,6 @@ namespace ReunioSocial
             assignarSimpaties();
 
             grdEscenari.ShowGridLines = true;
-            
         }
 
         /// <summary>
